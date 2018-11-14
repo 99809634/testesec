@@ -1,0 +1,211 @@
+{% paginate customer.addresses by 5 %}
+
+<div class="col-xs-12">
+  <div id="carrossel" class="col-12 padding_0">
+    <section class="section padding_0 slide_full ">
+			<div class="columns">
+				<div class="column is-10 is-offset-1">
+					<div class="slideshow">
+						<div class="slide"><img src="{{ 'destaque.jpg' | asset_url }}" alt="" class="img-fluid" /></div>
+						<div class="slide"><img src="{{ 'destaque.jpg' | asset_url }}" alt="" class="img-fluid" /></div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+<div class="page-width text-center">
+  <header class="section-header">
+    <h1 class="c_blue lato_black f32">{{ 'customer.addresses.title' | t }}</h1>
+    <p><a class="c_999999" href="/account">{{ 'customer.account.return' | t }}</a></p>
+    <p class="margin_b_50">
+      <button type="button" class="btn address-new-toggle">{{ 'customer.addresses.add_new' | t }}</button>
+    </p>
+  </header>
+</div>
+
+<div class="col-12 bg_f2f2f2">
+  <div class="container padding_t_20 padding_b_50 ">
+    <div class="page-width">
+      <div class="grid">
+        <div class="grid__item medium-up--two-thirds medium-up--push-one-sixth">
+          {% comment %}
+            Add address form, hidden by default
+          {% endcomment %}
+          <div class="row justify-content-center">
+            <div id="AddressNewForm" class="form-vertical hide bg_fff padding_20 col-md-10 col-12">
+              {% form 'customer_address', customer.new_address %}
+                <h2 class="c_blue f24 lato_black">{{ 'customer.addresses.add_new' | t }}</h2>
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half col-md-6 col-12 padding_0">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_90" type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}">
+                  </div>
+
+                  <div class="grid__item medium-up--one-half col-md-6 col-12 padding_0">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_90" type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}">
+                  </div>
+                </div>
+
+                <div class="grid">
+                  <div class="grid__item">
+                    <label class="c_l_blue upper f12 lato_black w_p_90 margin_t_20" for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95 margin_b_20" type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+
+                    <label class="hide" for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+                    <input class="placeholder_form end1"  placeholder="Endereço 1" type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}">
+
+                    <label class="hide" for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+                    <input class="placeholder_form" placeholder="Endereço 2" type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}">
+                  </div>
+                </div>
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half margin_t_20">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95" type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}">
+                  </div>
+
+                  <div class="grid__item medium-up--one-half margin_t_20">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+                    <select class="m_w_full border_b_2 border_c_cccccc padding_10" id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+                  </div>
+                </div>
+
+                <div id="AddressProvinceContainerNew" style="display:none">
+                  <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+                  <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+                </div>
+
+                <div class="">
+                  <div class="col-md-4 col-12 padding_0 margin_t_10">
+                    <label class="c_l_blue upper f12 lato_black w_p_95 left margin_t_10" for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95 left" type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                  </div>
+
+                  <div class="col-md-4 col-12 padding_0 margin_t_10">
+                    <label class="c_l_blue upper f12 lato_black w_p_95 right margin_t_10" for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95 right" type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                  </div>
+
+                  <div class="col-md-4 hidden-xs padding_t_50 padding_b_50 margin_t_20"></div>
+                </div>
+
+                {{ form.set_as_default_checkbox }}
+                <label class="c_l_blue upper f12 lato_black" for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+
+                <div class="align_c col-12 padding_t_50 padding_b_50">
+                  <input type="submit" class="btn margin_t_10" value="{{ 'customer.addresses.add' | t }}">
+                  <button type="button" class="btn margin_t_10 text-link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</button>
+                </div>
+              {% endform %}
+              <hr>
+            </div>
+          </div>
+
+          {% comment %}
+            List all customer addresses with a unique edit form.
+            Also add pagination in case they have a large number of addresses
+          {% endcomment %}
+          {% for address in customer.addresses %}
+            <div class="row justify-content-center enderecos">
+              <div class="address col-md-10 col-12 align_l bg_fff margin_t_20 padding_0">
+                {% if address == customer.default_address %}
+                  <p class="col-12 l_blue f14 c_fff padding_10 lato_black margin_b_20 principal "><strong>{{ 'customer.addresses.default' | t }}</strong></p>
+                {% endif %}
+
+                {{ address | format_address }}
+
+                <p class="text-center margin_b_20 ">
+                  <button type="button" class="btn btn--small address-edit-toggle" data-form-id="{{ address.id }}">{{ 'customer.addresses.edit' | t }}</button>
+                  <button type="button" class="btn btn--secondary btn--small address-delete" data-form-id="{{ address.id }}" data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">{{ 'customer.addresses.delete' | t }}</button>
+                </p>
+              </div>
+            </div>
+
+          <div class="row justify-content-center ">
+            <div id="EditAddress_{{ address.id }}" class=" form-vertical hide bg_fff margin_t_20 margin_b_20 padding_20 col-md-10 col-12">
+              {% form 'customer_address', address %}
+
+                <h4 class="c_blue f24 lato_black">{{ 'customer.addresses.edit_address' | t }}</h4>
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half col-md-6 col-12 padding_0">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_90" type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}">
+                  </div>
+
+                  <div class="grid__item medium-up--one-half col-md-6 col-12 padding_0">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_90" type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}">
+                  </div>
+                </div>
+
+                <label class="c_l_blue upper f12 lato_black w_p_90 margin_t_20" for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+                <input class="border_b_2 border_c_cccccc w_p_95 margin_b_20" type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}">
+
+                <label class="hide" for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+                <input class="placeholder_form end1"  placeholder="Endereço 1" type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}">
+
+                <label class="hide" for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+                <input class="placeholder_form" placeholder="Endereço 2" type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}">
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95" type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}">
+                  </div>
+                  <div class="grid__item medium-up--one-half">
+                    <label class="c_l_blue upper f12 lato_black w_p_90" for="AddressCountry_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+                    <select class="m_w_full border_b_2 border_c_cccccc padding_10" id="AddressCountry_{{ form.id }}" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+                  </div>
+                </div>
+
+                <div id="AddressProvinceContainer_{{ form.id }}" style="display:none">
+                  <label for="AddressProvince_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+                  <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+                </div>
+
+                <div class="grid">
+                  <div class="grid__item col-md-4 col-12 padding_0 margin_t_10">
+                    <label class="c_l_blue upper f12 lato_black w_p_95 left margin_t_10" for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95 left" type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                  </div>
+
+                  <div class="grid__item col-md-4 col-12 padding_0 margin_t_10">
+                    <label class="c_l_blue upper f12 lato_black w_p_95 right margin_t_10" for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+                    <input class="border_b_2 border_c_cccccc w_p_95 right" type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}">
+                  </div>
+
+                  <div class="col-md-4 hidden-xs padding_t_50 padding_b_50 margin_t_20"></div>
+                </div>
+
+                <div class="">
+                  {{ form.set_as_default_checkbox }}
+                  <label class="c_l_blue upper f12 lato_black" for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+
+                  <div class="align_c col-12 padding_t_50 padding_b_50">
+                    <input type="submit" class="btn margin_t_10" value="{{ 'customer.addresses.update' | t }}">
+                    <button type="button" class="btn margin_t_10 text-link address-edit-toggle" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</button>
+                  </div>
+                </div>
+
+              {% endform %}
+              <hr>
+            </div>
+          </div>
+          {% endfor %}
+
+          {% if paginate.pages > 1 %}
+            {% include 'pagination' %}
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endpaginate %}

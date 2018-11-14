@@ -1,0 +1,12 @@
+{% comment %}
+  The contents of the lists-collections.liquid template can be found in /sections/lists-collections-template.liquid
+{% endcomment %}
+
+{% if customer %}
+{% section 'list-collections-template' %}
+{% else %}
+<script type="text/javascript">
+window.location.href = "/account/login";
+</script>
+{% endif %}
+

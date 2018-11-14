@@ -1,0 +1,497 @@
+<div class="col-xs-12">
+	<div class="footer c_fff col-xs-12">
+	     <div class="col-12 margin_b_20">
+				 <div class="row justify-content-center">
+			     <div class="col-md col-sm-12 footer-items-mobile" style="padding-left:30px;">
+
+							 <div class="col-xs-12">
+								 <p class="f12 upper">Dúvidas? Fale com nossa central de atendimento:</p>
+							 </div>
+							 <div class="col-xs-12">
+								 		<span class="f24 txt-fone">(11) 4873-2123</span>
+										<br />
+								 		<span class="f12 txt-atendimento">de segunda a sexta-feira, das 8h às 20h.</span>
+							 </div>
+							 <div class="col-xs-12">
+									<p class="f24">
+										<a class="btn-footer-mail" href="mailto:atendimento@sempreemcasa.com.br">atendimento@sempreemcasa.com.br</a>
+									</p>
+							 </div>
+
+			     </div>
+
+					 <div class="col-md col-sm-12 redes_sociais footer-items-mobile text-center">
+			        <div class=" f12 upper margin_t_10 margin_b_30">Nossas redes sociais:</div>
+			        <a href="https://www.facebook.com/SemprEmCasa/" target="blank">
+								<span class="fa-stack ">
+									<i class="fas fa-circle fa-stack-2x c_l_blue"></i>
+									<i class="fab fa-facebook-f fa-stack-1x c_blue "></i>
+								</span>
+							</a>
+							<a href="https://www.instagram.com/_sempreemcasa/" target="blank">
+								<span class="fa-stack ">
+									<i class="fas fa-circle fa-stack-2x c_l_blue"></i>
+									<i class="fab fa-instagram fa-stack-1x c_blue "></i>
+								</span>
+							</a>
+			     </div>
+
+			     <div class="col-md col-sm-12 footer-items-mobile">
+			        <div class=" f12 upper margin_t_10 margin_b_30">Formas de pagamento:</div>
+			        <img alt="" src="{{ 'pag.png' | asset_url }}" />
+			     </div>
+			     <div class="col-md col-sm-12 footer-items-mobile align_center">
+			        <img  class="margin_t_30 img-fluid" alt="" src="{{ '18_plus.png' | asset_url }}" />
+			     </div>
+
+			     <div class="col-md col-sm-12 footer-items-mobile align_center">
+			        <img  class="margin_t_15 img-fluid" alt="" src="{{ 'logo-f.png' | asset_url }}" />
+			     </div>
+				 </div>
+	    </div>
+	    <div class="col-xs-12 f12 normal footer-items-mobile footer-text-mobile">
+	       <div class="m_l_p">
+	         <div class="col-xs-12">
+			       <div>Ambev S.A.: Rua Renato Paes de Barros, 1.017, 4º andar, Itaim-Bibi, São Paulo, SP - CEP: 04530-001.</div>
+			       <div>
+							 <div class="">
+								 <div class="col-sm col-md-8 padding_0">
+									 A loja online do Sempre em Casa é operada pela Infracommerce
+									 CNPJ: 15.427.207/0002-03 | Inscrição Estadual: 298.168.930.119 |
+									 Endereço: Rua José Semião Rodrigues Agostinho 1.370 - Galpão 25 -
+									 Embu das Artes - SP - CEP: 06833-370.
+								 </div>
+
+								 <div class="col-sm col-md-4">
+									 <a href="/pages/termos-de-uso" class="c_blue bold footer-blue-link bg_r_00a3ea margin_r_10 inline_block">Termos de uso</a>
+									 <a href="/pages/politica-de-privacidade" class="c_blue bold footer-blue-link bg_r_00a3ea  inline_block">Políticas de Privacidades</a>
+								 </div>
+							 </div>
+						 </div>
+	         </div>
+	       </div>
+	    </div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="{{ 'bootstrap.min.js' | asset_url }}"></script>
+<script src="{{ 'slick.js' | asset_url }}"></script>
+<script src="{{ 'jquery.mask.min.js' | asset_url }}"></script>
+<script src="{{ 'jquery-match-height.min.js' | asset_url }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+<script src="{{ 'main.js' | asset_url }}"></script>
+
+{% if template == 'index' %}
+<div class="modal fade 18anos">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_ass">
+			<div class="container-fluid">
+				<div class="row">
+					<img src="{{ '18.png' | asset_url }}" class="img-responsive margin_auto" />
+					<p class="f20 lato_black c_blue align_c padding_t_40 w_full">Para você acessar esse conteúdo, precisamos checar a sua idade.<br /> Você é maior de 18 anos?</p>
+				</div>
+				<div class="row justify-content-center">
+					<div class="align_c">
+						<a class="btn margin_r_20 l_blue margin_t_10 upper" href="https://www.ambev.com.br/consumo-responsavel" >Não</a>
+						<a class="btn margin_r_20 l_blue margin_t_10 upper btn-close-modal-idade" data-dismiss="modal" aria-label="Close">Sim</a>
+					</div>
+				</div>
+			</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var idade = window.localStorage.getItem('idade_ok');
+
+  if(idade == null || idade == undefined){
+    $('.18anos').modal('show');
+  }
+
+  $('.btn-close-modal-idade').on('click', function(){
+     window.localStorage.setItem("idade_ok", "ok");
+  });
+})();
+</script>
+<style>
+  #animation_container {
+
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+	.carousel_slick_banner .slick-slide{padding: 0;}
+	.carousel_slick_banner .slick-prev{margin-left: 2%;}
+	.carousel_slick_banner .slick-prev, .carousel_slick_banner .slick-next{
+		position: absolute;
+		top:50%;
+		z-index: 1;
+		color: transparent;
+		background-color: transparent;
+		cursor: pointer;
+	 }
+	 .carousel_slick_banner .slick-next{right: 0;}
+</style>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+
+var manifestSempre = [
+	{src:'{{"Bitmap3.png" | asset_url}}', id:"Bitmap3"},
+	{src:'{{"Bitmap4.png"  | asset_url}}', id:"Bitmap4"},
+	{src:'{{"Bitmap5.png" | asset_url}}', id:"Bitmap5"},
+	{src:'{{"Bitmap6.png" | asset_url}}', id:"Bitmap6"},
+	{src:'{{"Bitmap7.png" | asset_url}}', id:"Bitmap7"},
+	{src:'{{"Bitmap8_breja.png" | asset_url}}', id:"Bitmap8_breja"},
+	{src:'{{"sempre.jpg" | asset_url}}', id:"sempre"}
+];
+
+var manifestVarejo = [
+	{src:'{{"Bitmap12.png" | asset_url}}', id:"Bitmap12"},
+	{src:'{{"cervejas.jpg"  | asset_url}}', id:"cervejas"}
+];
+
+var manifestCancelar = [
+	{src:'{{"Bitmap20.png" | asset_url}}', id:"Bitmap20"}
+];
+
+var manifestSMob = [
+	{src:'{{"Bitmap10.jpg" | asset_url}}', id:"Bitmap10"},
+	{src:'{{"Bitmap3.png"  | asset_url}}', id:"Bitmap3"},
+	{src:'{{"Bitmap4.png" | asset_url}}', id:"Bitmap4"},
+	{src:'{{"Bitmap5.png" | asset_url}}', id:"Bitmap5"},
+	{src:'{{"Bitmap6.png" | asset_url}}', id:"Bitmap6"},
+	{src:'{{"Bitmap7.png" | asset_url}}', id:"Bitmap7"},
+	{src:'{{"Bitmap8_breja.png" | asset_url}}', id:"Bitmap8_breja"}
+];
+
+var manifestVMob = [
+	{src:'{{"Bitmap8.png" | asset_url}}', id:"Bitmap8"},
+	{src:'{{"cervejas_mob.jpg" | asset_url}}', id:"cervejas_mob"}
+];
+
+var manifestCMob = [
+	{src:'{{"Bitmap21.png" | asset_url}}', id:"Bitmap21"}
+];
+
+</script>
+<script src="{{ 'VAREJO.js' | asset_url }}"></script>
+<script src="{{ 'VAREJO_mob.js' | asset_url }}"></script>
+<script>
+
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+var canvas_vm, stage_vm, exportRoot_vm, anim_container_vm, dom_overlay_container_vm, fnStartAnimation_vm;
+
+function initCanvas() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("5D49D9FBC81E4A079FDB7CAA8C62C8E6");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp, 'varejo')});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp, 'varejo')});
+	window.addEventListener("resize", function(evt){handleComplete(evt,comp, 'varejo')});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+
+	canvas_vm = document.getElementById("canvas_vm");
+	anim_container_vm = document.getElementById("animation_container_vm");
+	dom_overlay_container_vm = document.getElementById("dom_overlay_container_vm");
+	var comp_vm=AdobeAn.getComposition("5D49D9FBC81E4A079FDB7CAA8C62C8E6vm");
+	var lib_vm=comp_vm.getLibrary();
+	var loader_vm = new createjs.LoadQueue(false);
+	loader_vm.addEventListener("fileload", function(evt){handleFileLoad(evt,comp_vm, 'varejo_vm')});
+	loader_vm.addEventListener("complete", function(evt){handleComplete(evt,comp_vm, 'varejo_vm')});
+	window.addEventListener("resize", function(evt){handleComplete(evt,comp_vm, 'varejo_vm')});
+	var lib_vm=comp_vm.getLibrary();
+	loader_vm.loadManifest(lib_vm.properties.manifest);
+
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }
+}
+function handleComplete(evt,comp, tipo) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+
+	if(tipo == 'varejo'){
+		exportRoot = new lib.VAREJO();
+		stage = new lib.Stage(canvas);
+
+		//Registers the "tick" event listener.
+		fnStartAnimation = function() {
+			stage.addChild(exportRoot);
+			createjs.Ticker.setFPS(lib.properties.fps);
+			createjs.Ticker.addEventListener("tick", stage);
+		}
+	}else if(tipo == 'varejo_vm'){
+		exportRoot_vm = new lib.VAREJO_mob();
+		stage_vm = new lib.Stage(canvas_vm);
+
+		//Registers the "tick" event listener.
+		fnStartAnimation_vm = function() {
+			stage_vm.addChild(exportRoot_vm);
+			createjs.Ticker.setFPS(lib.properties.fps);
+			createjs.Ticker.addEventListener("tick", stage_vm);
+		}
+	}
+
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {
+		var lastW, lastH, lastS=1;
+
+		window.addEventListener('resize', resizeCanvas);
+		resizeCanvas();
+		function resizeCanvas() {
+			var slider_container = document.getElementById('banner-home');
+
+			if(tipo == 'varejo'){
+				var w = lib.properties.width, h = lib.properties.height;
+				var iw = window.innerWidth, ih=window.innerHeight;
+				var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;
+				if(isResp) {
+					if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {
+						sRatio = lastS;
+					}
+					else if(!isScale) {
+						if(iw<w || ih<h)
+							sRatio = Math.min(xRatio, yRatio);
+					}
+					else if(scaleType==1) {
+						sRatio = Math.min(xRatio, yRatio);
+					}
+					else if(scaleType==2) {
+						sRatio = Math.max(xRatio, yRatio);
+					}
+				}
+				canvas.width = (w*pRatio*sRatio)-20;
+				canvas.height = h*pRatio*sRatio;
+				canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  ((w*sRatio)-20)+'px';
+				canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+				stage.scaleX = pRatio*sRatio;
+				stage.scaleY = pRatio*sRatio;
+				lastW = iw; lastH = ih; lastS = sRatio;
+				stage.tickOnUpdate = false;
+				stage.update();
+				stage.tickOnUpdate = true;
+			}else if(tipo == 'varejo_vm'){
+				var w = lib.properties.width, h = lib.properties.height;
+				var iw = window.innerWidth, ih=window.innerHeight;
+				var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;
+				if(isResp) {
+					if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {
+						sRatio = lastS;
+					}
+					else if(!isScale) {
+						if(iw<w || ih<h)
+							sRatio = Math.min(xRatio, yRatio);
+					}
+					else if(scaleType==1) {
+						sRatio = Math.min(xRatio, yRatio);
+					}
+					else if(scaleType==2) {
+						sRatio = Math.max(xRatio, yRatio);
+					}
+				}
+				canvas_vm.width = (w*pRatio*sRatio)-20;
+				canvas_vm.height = h*pRatio*sRatio;
+				canvas_vm.style.width = dom_overlay_container_vm.style.width = anim_container_vm.style.width =  ((w*sRatio)-20)+'px';
+				canvas_vm.style.height = anim_container_vm.style.height = dom_overlay_container_vm.style.height = h*sRatio+'px';
+				stage_vm.scaleX = pRatio*sRatio;
+				stage_vm.scaleY = pRatio*sRatio;
+				lastW = iw; lastH = ih; lastS = sRatio;
+				stage_vm.tickOnUpdate = false;
+				stage_vm.update();
+				stage_vm.tickOnUpdate = true;
+			}
+		}
+	}
+	makeResponsive(true,'height',true,1);
+
+	if(tipo == 'varejo'){
+		AdobeAn.compositionLoaded(lib.properties.id);
+		fnStartAnimation();
+	}else if(tipo == 'varejo_vm'){
+		AdobeAn.compositionLoaded(lib.properties.id);
+		fnStartAnimation_vm();
+	}
+
+}
+</script>
+{% endif %}
+
+<script>
+(function(){
+var SPMaskBehavior = function (val) {
+    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+},
+    spOptions = {
+    onKeyPress: function(val, e, field, options) {
+    field.mask(SPMaskBehavior.apply({}, arguments), options);
+    }
+    };
+
+$('.telefone').mask(SPMaskBehavior, spOptions);
+$('.cpf').mask('000.000.000-00', {reverse: true});
+$('.input_cep').mask('00000-000', {reverse: true});
+})();
+</script>
+
+<!--
+<script>
+	$(document).ready(function(){
+		$(".linkmenu").on('click', function(event) {
+			if (this.hash !== "") {
+				event.preventDefault();
+
+				var hash = this.hash;
+
+				$('html, body').animate({
+					scrollTop: $(hash).offset().top
+				}, 800, function(){
+		
+					window.location.hash = hash;
+				});
+			} 
+		});
+	});
+
+	$(document).ready(function() {
+		var alturaBody = $("#h-header").height();
+		var alturaDiv = $("#divA").height();
+		var offsetTop = $("#divA").offset().top;
+		console.log("Altura do body: "+alturaBody);
+		console.log("Altura da div: "+alturaDiv);
+		
+		$("#divA").css({ "margin-top": +alturaBody+"px" });
+	});
+
+	$(document).ready(function() {
+		var logo_height = $('#h-header').height();
+		var margin = $('#h-header').css('margin-top');
+		margin = margin.replace('px', '');
+
+
+		var windowHeight = $(window).height();
+		var logo_result = logo_height + (margin * 2);
+
+		console.log("Altura do Menu: "+logo_result);
+		console.log("Altura da janela: "+windowHeight);
+
+		var new_height = (windowHeight - logo_result) - margin;
+		
+		console.log("Altura da div: "+new_height);
+
+		var imageX = $('#divA').width();
+
+		
+
+		resizeImageDiv(imageX,new_height);
+
+		$('#divA').height(new_height);	
+	});
+
+	$(document).ready(function() {
+		var alturaBody = $("#h-header").height();
+		var alturaDiv = $("#divA").height();
+		console.log("Altura do body: "+alturaBody);
+		console.log("Altura da div: "+alturaDiv);
+		
+		$("#divA").css({ "margin-top": +alturaBody+"px" });
+	});
+</script>
+-->
+
+<script>
+
+	$(document).ready(function() {
+		var alturaBody = $("#h-header").height();
+		var h = $(window).height();
+		$("#divA").css({ "margin-top": +alturaBody+"px" });
+
+		$(window).resize(function(){
+			var nh = $(window).height();
+			if (nh != h)
+				$("#divA").css({ "margin-top": +alturaBody+"px" });
+			else (nh == h) 
+				$("#divA").css({ "margin-top": +alturaBody+"px" });
+				
+			// atualizar os valores nas variáveis que guardam o valor antigo
+			h = nh; w = nw;
+		});
+	});
+	
+	
+</script>
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Footer",
+      "de": "Fußzeile",
+      "fr": "Pied de page"
+    },
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": {
+          "en": "Primary menu",
+          "de": "Hauptmenü",
+          "fr": "Menu principal"
+        },
+        "default": "footer",
+        "info": {
+          "en": "This menu won't show dropdown items",
+          "de": "Dieses Menü zeigt keine Dropdowns an",
+          "fr": "Ce menu n'affichera pas les éléments des menus déroulants"
+        }
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_two",
+        "label": {
+          "en": "Additional menu",
+          "de": "Extra Menü",
+          "fr": "Menu supplémentaire"
+        },
+        "default": "main-menu",
+        "info": {
+          "en": "This menu won't show dropdown items",
+          "de": "Dieses Menü zeigt keine Dropdowns an",
+          "fr": "Ce menu n'affichera pas les éléments des menus déroulants"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_enable",
+        "label": {
+          "en": "Show newsletter signup",
+          "de": "Newsletter Signup anzeigen",
+          "fr": "Afficher l'inscription à la newsletter"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": {
+          "en": "Show payment icons",
+          "de": "Zahlungs-Buttons anzeigen",
+          "fr": "Afficher les icônes de paiement"
+        },
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

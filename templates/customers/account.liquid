@@ -1,0 +1,70 @@
+<div class="col-xs-12 ">
+  <div id="carrossel" class="col-12 padding_0">
+    <section class="section padding_0 slide_full">
+			<div class="columns">
+				<div class="column is-10 is-offset-1">
+					<div class="slideshow">
+						<div class="slide"><img src="{{ 'destaque.jpg' | asset_url }}" alt="" class="img-fluid" /></div>
+						<div class="slide"><img src="{{ 'destaque.jpg' | asset_url }}" alt="" class="img-fluid" /></div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+<div class="container">
+      <div class="col-sm-12 align_center margin_b_20">
+        <h1 class="c_l_blue align_c f30 lato_black">{{ 'customer.account.title' | t }}</h1>
+        
+      </div>
+      <div class="col-sm-8 padding_t_25 padding_b_25 padding_r_0 padding_l_0">
+        <div class="grid__item medium-up--two-thirds">
+          <h2 class="c_blue lato_black f28  margin_b_30">{{ 'customer.orders.title' | t }}</h2>
+
+          {% paginate customer.orders by 20 %}
+            {% if customer.orders.size != 0 %}
+
+              <table class="responsive-table">
+                <thead>
+                  <tr>
+                    <th>{{ 'customer.orders.order_number' | t }}</th>
+                    <th>{{ 'customer.orders.date' | t }}</th>
+                    <th>{{ 'customer.orders.payment_status' | t }}</th>
+                    <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                    <th>{{ 'customer.orders.total' | t }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders %}
+                    <tr>
+                      <td data-label="{{ 'customer.orders.order_number' | t }}">
+                        <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small">{{ order.name }}</a>
+                      </td>
+                      <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
+                      <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                      <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                      <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+            {% else %}
+
+              <p class="c_333">{{ 'customer.orders.none' | t }}</p>
+
+            {% endif %}
+            {% if paginate.pages > 1 %}
+              {% include 'pagination' %}
+            {% endif %}
+          {% endpaginate %}
+        </div>
+      </div>
+      <div class="col-sm-4 padding_t_25 padding_b_25 padding_r_0 padding_l_0 detalhes_conta ">
+        <h2 class="c_blue lato_black f28 margin_b_30">{{ 'customer.account.details' | t }}</h2>
+
+        {{ customer.default_address | format_address }}
+
+        <p class=" "><a href="/account/addresses" class="btn l_blue">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+      </div>
+</div>

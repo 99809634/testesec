@@ -1,0 +1,125 @@
+<!-- cart item skeleton : begin -->
+<div id="cart-item-skeleton" style="display:none;">
+    <li>
+        <div class="car_prod_item bg_fff col-12" id="item-##id##">
+            <input class='variantid' type="hidden" value="##variant_id##" />
+            <input class='iquantity' type="hidden" value="##quantity##" />
+            <div class="row align-items-center">
+                <a href="javascript:void(0);" class="right pull-right pointer remove-cart-item" data-id="##variant_id##">
+                    <img src="{{ 'close.png' | asset_url }}" />
+                </a>
+                
+                <div class="image">
+                    <img src="##image##">
+                </div>
+            
+                <div class="info">
+                    <div class="col-md-4 col-12 padding_0 align-self-center">
+                        <div class="c_l_blue f14">##product##</div>
+                        <div class="f14 normal">(x##quantity##)</div>
+                    </div>
+                
+                    <div class="col-md-8 col-12 m_padding_0 m_left_padding align-self-center">
+                        <div class="f14 c_blue preco">            
+                            De: <span class="sti_d cap">carregando ..</span>
+                        </div>
+                        <div class="f21 c_l_blue m_line_20"><span class="f14 c_blue">Por: </span> <span class="price">carregando ..</span></div>
+                    </div>
+                
+                </div><!-- .info -->
+
+            </div><!-- .row align-items-center -->
+        </div><!-- .car_prod_item -->
+    </li>
+</div><!-- .cart-item-skeleton -->
+<!-- cart item skeleton : end -->
+
+<!-- empty cart : begin -->
+<div id="empty-cart" style="display: none;">
+    <div class="c_ffffff">
+        <div class="col-12 bread_line" style="background-color:#fff;"></div>
+
+        <div class="col-12 message-carrinho text-center">
+            <h3 class="text-center">Seu carrinho esta vazio.</h3>
+            <p class="text-center padding_t_10 f16">Conheça nossos produtos e monte sua assinatura.</p>
+            <a class="btn btn-add-to-cart margin_t_25" href="/collections/cerveja">Ver produtos</a>
+        </div>
+
+        <div class="col-12 bread_line" style="background-color:#fff;"></div>
+    </div>
+</div><!-- .empty-cart -->
+<!-- empty cart : end -->
+
+<!-- carrinho : begin -->
+<section class="lista_assinatura productsSelectBox bg_33b5ee cart fs-navigation-element fs-navigation-push-nav fs-navigation-push-right-nav fs-navigation__0 fs-navigation-enabled fs-navigation-animated fs-navigation-toggle-nav fs-navigation-open" id="cart" style="display: none;">
+    <section class="cart-view">
+        <div class="margin_t_10 margin_l_20 margin_b_40">
+            
+            <div class="c_blue">
+                <img alt="" src="{{'ico-car.png'| asset_url }}"> Minha Assinatura
+            </div>
+            
+            <div class="close_c">X</div>
+        </div>
+        
+        <div class="prod_car_list">
+            <ul>
+            </ul>
+        </div>
+
+        <div class="flex_bottom">
+            <div class="lateralIntervalos">
+                <div class="col-12 bread_line"></div>
+                <div class="f15 pickTitle">Escolha o intervalo de entregas</div>
+                <ul>
+                    <li class="selectedInterval" data-interval="30">
+                        <div class="outer">
+                            <div class="inner">
+                                <div class="intervalosDias">30</div>
+                                <div class="intervalosTitle">Mensal</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="spacerInterval"></li>
+                    <li class="selectedInterval" data-interval="60">
+                        <div class="outer">
+                            <div class="inner">
+                                <div class="intervalosDias" data-interval="60">60</div>
+                                <div class="intervalosTitle">Bimestral</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="spacerInterval"></li>
+                    <li class="selectedInterval" data-interval="90">
+                        <div class="outer">
+                            <div class="inner">
+                                <div class="intervalosDias" data-interval="90">90</div>
+                                <div class="intervalosTitle">Trimestral</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="result align_r subtotal" id="result_bottom">
+        
+                <div class="col-12 bread_line"></div>
+                <div>
+                    <span class="f24 final_discount">
+                        Você economiza <span id="final_discount_result"></span><!--{% if cart.item_count > 0 %}{{ desconto | minus: cart.total_price | money }}{%else%}R$ 0,00{% endif %}-->
+                    </span>
+                    <span class="normal">  nessa assinatura.</span>
+                </div>
+        
+                <div class="f24 final_price">Total: <span id="final_price_result"></span></div>
+        
+                <div class="col-12 bread_line"></div>
+
+                <button type="button" class="btn right" id="intervaloSelectBtn"><span class="selbtn-intervalo">Selecionar intervalo</span><span class="arr_n"><img class="margin_l_10" alt="" src="{{ 'arr-next.png' | asset_url }}"> </span></button>
+            </div><!-- .result align_r subtottal -->
+
+            <!--button type="button" class="btn right" id="intervaloSelectBtn" {% if cart.item_count == 0 %}disabled{%endif%}>Selecionar intervalo<span class="arr_n"><img class="margin_l_10" alt="" src="{{ 'arr-next.png' | asset_url }}"> </span></button-->
+        </div><!-- .flex_bottom -->
+    </section><!-- .cart-view -->
+</section>
+<!-- carrinho : begin -->

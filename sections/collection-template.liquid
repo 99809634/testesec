@@ -1,0 +1,220 @@
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' |  replace:'%20',' ' |  replace:'\u0026','&' -%}
+{%- assign pageQuerystring = pageUrl | split:'?' | last -%}
+{%- assign parts = pageQuerystring | split:'&' -%}
+<div class="col-xs-12 col-sm-12 bg_f2f2f2 w_1024 productsSelectBox">
+	<div class="c_list_f col-xs-12">
+    {% include 'breadcrumb' %}
+    {% include 'menu-pesquisa', collections %}
+
+		{% paginate collection.products by 24 %}
+	    {% for product in collection.products %}
+	      {% if product.price > 0 %}
+	        <div class="col-md-4 col-sm-6 col-xs-12 col-lg-3 col-xl-3 padding_0">
+	          {% include 'product-card-list', product: product %}
+	        </div>
+	      {% endif %}
+	    {% endfor %}
+			{% if collection.current_vendor %}
+				<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+					<a href="/collections/cerveja" class="btn l_blue">Remover filtro</a>
+				</div>
+			{% endif %}
+
+			<div class="col-md-12 text-center">
+		    {% include 'pagination' %}
+		  </div>
+		{% endpaginate %}
+
+	</div>
+
+</div>
+</div>
+
+
+{% include 'carrinho-lateral' %}
+
+<div class="col-xs-12 selectIntervalo" style="display:none;">
+	<div class="col-12 bg_f2f2f2">
+		<div class="c_list_f row">
+      <div class="bread col-sm-12 col-md-12 align_center">
+        <div class="num_bread_active"><div class="num_bread"><img class="img-responsive" alt="Icone Escolha de Produtos" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_1.png" /></div> <div class="display-steps-mobile-none">Escolha seus produtos</div></div>
+        <div class="num_bread_active">></div>
+        <div class="active"><div class="num_bread"><img class="img-responsive" alt="Icone Intervalo de entregas" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_2.png" /></div> <div class="display-steps-mobile-none">Intervalo de entregas</div></div>
+        <div>></div>
+        <div><div class="num_bread"><img class="img-responsive" alt="Icone Confirmar e Finalizar" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_3-1.png" /></div> <div class="display-steps-mobile-none">Confirmar e finalizar</div></div>
+    </div>
+    <div class="col-xs-12 bread_line"></div>
+		</div>
+		<div class="row">
+			<div class="t_a container">
+				<div class="f32 align_c c_l_blue">Escolha agora o intervalo da sua entrega.</div>
+				<div class="f16 align_c c_blue">Sua primeira entrega será realizada em até 7 dias a partir da data de confirmação da asssinatura.</div>
+				<div class="row justify-content-center padding_b_50 padding_t_70">
+					<div class="col-md-8 col-12 rol-v">
+						<div class="row">
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="mensal" class="input-hidden" />
+								<label for="mensal" class="pointer selectedInterval" data-interval="30">
+									<img class="img-responsive" alt="" src="{{ 'nMensal.png'| asset_url }}" alt="Intervalo Mensal" />
+								</label>
+							</div>
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="bimestral" class="input-hidden" />
+								<label for="bimestral" class="pointer selectedInterval" data-interval="60">
+									<img class="img-responsive" alt="" src="{{ 'nBimestral.png' | asset_url }}" alt="Intervalo Bimestral" />
+								</label>
+							</div>
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="trimestral" class="input-hidden" />
+								<label for="trimestral" class="pointer selectedInterval" data-interval="90">
+									<img class="img-responsive" alt="" src="{{ 'nTrimestral.png' | asset_url }}" alt="Intervalo Bimestral" />
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="f16 align_c c_333 lato_regular">
+					<p><span class="c_l_blue lato_black">Lembre-se:</span> você pode fazer mais de uma assinatura sem custos adicionais. Assim é possível programar a frequência<br> de cada assinatura e receber seus produtos separadamente.<p>
+					<a href="javascript:void(0);" class="btn bg_073b79 margin_t_40 btn-go-to-cart" style="display:none !important">Avançar <img src="{{ 'prox.png' | asset_url }}" class="padding_l_10"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modalMessage">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_ass">
+      <div class="container-fluid">
+        <div class="row">
+          <p class="f20 lato_black c_blue align_c padding_t_40 w_full" id="modalMessageText">
+
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="align_c">
+            <a class="btn margin_r_20 l_blue margin_t_10 upper" data-dismiss="modal" aria-label="Close" >Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+		(function() {
+      $('.ico_carrinho, .close_c').click(function(){
+        $('.lista_assinatura').toggle('fast');
+      });
+		})();
+
+</script>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Collection pages",
+      "de": "Kategorie-Seiten",
+      "fr": "Pages de collections"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": {
+          "en": "Layout",
+          "de": "Layout",
+          "fr": "Mise en page"
+        },
+        "default": "grid",
+        "options": [
+          {
+            "value": "grid",
+            "label": {
+              "en": "Grid",
+              "de": "Raster",
+              "fr": "Grille"
+            }
+          },
+          {
+            "value": "list",
+            "label": {
+              "en": "List",
+              "de": "Liste",
+              "fr": "Liste"
+            }
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "grid",
+        "label": {
+          "en": "Products per row (grid only)",
+          "de": "Produkte per Reihe (nur Raster)",
+          "fr": "Produits par rangée (grille uniquement)"
+        },
+        "default": 4,
+        "min": 2,
+        "max": 5,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "rows",
+        "label": {
+          "en": "Rows per page (grid only)",
+          "de": "Reihen per Seite (nur Raster)",
+          "fr": "Rangées par page (grille uniquement)"
+        },
+        "default": 2,
+        "min": 2,
+        "max": 8,
+        "step": 1
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_image",
+        "label": {
+          "en": "Show collection image",
+          "de": "Kategorie-Foto anzeigen",
+          "fr": "Afficher l'image de la collection"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": {
+          "en": "Show product vendors",
+          "de": "Produkt-Lieferanten anzeigen",
+          "fr": "Afficher les vendeurs"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "sort_enable",
+        "label": {
+          "en": "Enable sorting",
+          "de": "Sortieren erlauben",
+          "fr": "Activer le tri"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tags_enable",
+        "label": {
+          "en": "Enable tag filtering",
+          "de": "Tag-Filtern erlauben",
+          "fr": "Activer le filtrage par balises"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,125 @@
+
+<div class="col-xs-12 col-sm-12 bg_f2f2f2 w_1024 productsSelectBox">
+	<div class="c_list_f col-xs-12">
+    {% include 'breadcrumb' %}
+    {% include 'menu-pesquisa', collections %}
+
+    {% if search.results.size > 0 %}
+      {% paginate search.results by 30 %}
+        {% for product in search.results %}
+          {% if product.object_type == 'product' %}
+            {% if product.price > 0 %}
+              <div class="col-md-4 col-sm-6 col-xs-12 col-lg-3 col-xl-3 padding_0">
+                {% include 'product-card-list', product: product %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+          <div class="col-md-12 text-center">
+            {% include 'pagination' %}
+          </div>
+        {%endif%}
+      {% endpaginate %}
+    {% else %}
+      <div class="vb-not-found col-12 text-center float-left">
+        <div class="col-12">O produto que você procura não pode ser encontrado.</div>
+        <div class="col-12 middle">Confira os produtos disponíveis.</div>
+        <div class="col-12"><a href="/collections/cerveja" class="btn">Ver outros produtos</a></div>
+      </div>
+    {% endif %}<!-- if search.results.size -->
+    </div><!-- vb-search-div -->
+
+	</div>
+</div><!-- .productsSelectBox -->
+
+{% include 'carrinho-lateral' %}
+
+<div class="col-xs-12 selectIntervalo" style="display:none;">
+	<div class="col-12 bg_f2f2f2">
+		<div class="c_list_f row">
+			<div class="bread col-sm-12 col-md-12 col-lg-7">
+				<div class="col-sm-3 col-3">
+					<div class="c_l_blue f14">1. Escolha seus produtos</div>
+				</div>
+				<div class="col-sm-1 col-1 align_c">
+				>
+				</div>
+				<div class="col-sm-3 col-3">
+					<div class="active f14">2. Intervalo de entregas</div>
+				</div>
+				<div class="col-sm-1 col-1 align_c">
+				>
+				</div>
+				<div class="col-sm-3 col-3">
+					<div class="f14">3. Confirmar e finalizar</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="t_a container">
+				<div class="f32 align_c c_l_blue">Assine o Sempre em Casa e aproveite todas as vantagens!</div>
+				<div class="f16 align_c c_blue">Sua primeira entrega será realizada em até 7 dias a partir da data de confirmação da asssinatura.</div>
+				<div class="row justify-content-center padding_b_50 padding_t_70">
+					<div class="col-md-8 col-12 rol-v">
+						<div class="row">
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="mensal" class="input-hidden" />
+								<label for="mensal" class="pointer selectedInterval" data-interval="30">
+									<img class="img-responsive" alt="" src="{{ 'mensal.png'| asset_url }}" alt="Intervalo Mensal" />
+								</label>
+							</div>
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="bimestral" class="input-hidden" />
+								<label for="bimestral" class="pointer selectedInterval" data-interval="60">
+									<img class="img-responsive" alt="" src="{{ 'bimestral.png' | asset_url }}" alt="Intervalo Bimestral" />
+								</label>
+							</div>
+							<div class="col-12 col-sm-4 align_c">
+								<input type="radio" name="emotion" id="trimestral" class="input-hidden" />
+								<label for="trimestral" class="pointer selectedInterval" data-interval="90">
+									<img class="img-responsive" alt="" src="{{ 'trimestral.png' | asset_url }}" alt="Intervalo Bimestral" />
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="f16 align_c c_333 lato_regular">
+					<p><span class="c_l_blue lato_black">Lembre-se:</span> você pode fazer mais de uma assinatura sem custos adicionais. Assim é possível programar a frequência<br> de cada assinatura e receber seus produtos separadamente.<p>
+					<a href="javascript:void(0);" class="btn bg_073b79 margin_t_40 btn-go-to-cart" style="display:none !important">Avançar <img src="{{ 'prox.png' | asset_url }}" class="padding_l_10"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modalMessage">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_ass">
+      <div class="container-fluid">
+        <div class="row">
+          <p class="f20 lato_black c_blue align_c padding_t_40 w_full" id="modalMessageText">
+
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="align_c">
+            <a class="btn margin_r_20 l_blue margin_t_10 upper" data-dismiss="modal" aria-label="Close" >Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+		(function() {
+      $('.ico_carrinho, .close_c').click(function(){
+        $('.lista_assinatura').toggle('fast');
+      });
+		})();
+    
+</script>

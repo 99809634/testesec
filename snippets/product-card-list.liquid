@@ -1,0 +1,84 @@
+{%comment%}
+<div class="list-view-item__image-column">
+  <div class="list-view-item__image-wrapper">
+    <img class="list-view-item__image" src="{{ product.featured_image.src | img_url: '95x95', scale: 2 }}" alt="{{ product.featured_image.alt | escape }}">
+  </div>
+</div>
+
+<div class="list-view-item__title-column">
+  <div class="list-view-item__title">{{ product.title }}</div>
+  {% if product.compare_at_price > product.price %}
+    <div class="list-view-item__on-sale">{{ 'products.product.on_sale' | t }}</div>
+  {% endif %}
+  {% if section.settings.show_vendor %}
+    <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
+  {% endif %}
+  {% unless product.available %}
+    <div class="list-view-item__sold-out">{{ 'products.product.sold_out' | t }}</div>
+  {% endunless %}
+</div>
+
+{% if section.settings.show_vendor %}
+  <div class="list-view-item__vendor-column small--hide">
+    <div class="list-view-item__vendor">{{ product.vendor }}</div>
+  </div>
+{% endif %}
+
+<div class="list-view-item__price-column">
+  {% include 'product-price' %}
+</div>
+{%endcomment%}
+
+<div class="prod_item prod matchProducts">
+  <div class="vb-image-holder">
+    <img class="margin_b_10 img-responsive" src="{{ product.featured_image.src | img_url: '95x95', scale: 2 }}" alt="{{ product.featured_image.alt | escape }}">
+  </div>
+  <div class="bottom-card">
+    <div class="c_l_blue f14 ">{{ product.vendor }}</div>
+    <div class="f14 normal matchProductsTitle">{{ product.title }}</div>
+    <div class="col-xs-12 bread_line"></div>
+    <div class="prod_unidades">
+      <div class="c_blue f14 margin_b_10 align_center">Quantas unidades?</div>
+      <div class="col-xs-12 align_c overflow">
+        {% for variant in product.variants %}
+          <div class="c_rod pointer v_select var_{{variant.id}} {% if forloop.last == false and forloop.first == false %}active{% endif %}" data-vid="{{variant.id}}"  data-pid="{{product.id}}">
+            {% assign v_title = variant.title | remove: ' Unidades' %}
+            {% assign v_title_size = v_title | size %}
+            <div class="rod_i">{% if v_title_size > 1 %}{{v_title}}{%else%}0{{v_title}}{%endif%}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-xs-12 bread_line"></div>
+    {% for variant in product.variants %}
+      <div class="v_{{ variant.id }} p_{{product.id}} matchProductsDiscount_{{variant.id}}" {% if forloop.last == true or forloop.first == true %}style="display:none"{% endif %}>
+        <div class="col-xs-12">
+          <div class="col-xs-5 c_l_blue">
+            <div class="f14">Desconto:</div>
+            <div class="f24">{{variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round}}%</div>
+          </div>
+          <div class="col-xs-7">
+            <div class="f12 c_red">De: <span class="sti_d">{{ variant.compare_at_price | money }}</span></div>
+            <div class="f24 c_l_blue"><span class="f14 c_blue">Por: </span> <span class="price">{{ variant.price | money }}</span></div>
+          </div>
+        </div>
+        {% assign v_title = variant.title | remove: ' Unidades' %}
+        {% assign v_title_size = v_title | size %}
+        <div class="col-xs-12 bread_line"></div>
+        <div class="col-xs-12">
+          <div class="f15 normal align_center margin_b_15">A unidade sai por<span class="c_l_blue"> {{ variant.price | divided_by: v_title | money }} </span></div>
+        </div>
+        <div class="prod_sub">
+          <div class="btn btn-add-to-cart"
+            data-discount="{{variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round}}"
+            data-compare="{{ variant.compare_at_price }}"
+            data-price="{{ variant.price | money }}"
+            data-subid="{{ product.metafields.subscriptions.subscription_id }}"
+            data-vid="{{variant.id}}"
+            data-pid="{{product.id}}"
+            data-unit="{{product.metafields.subscriptions.shipping_interval_unit_type}}">Adicionar</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div><!-- .bottom-card -->
+</div>

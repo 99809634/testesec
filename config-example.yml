@@ -1,0 +1,8 @@
+development:
+  password: b6c24c5dddad6f1cff0340f285fa16fa
+  theme_id: "28640936051"
+  store: subscribe-and-save-2.myshopify.com
+  ignore_files:
+      -"*.swp"
+      -"*˜"
+      -"config/settings_data.json"

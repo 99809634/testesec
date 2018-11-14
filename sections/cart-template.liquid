@@ -1,0 +1,303 @@
+<div class="bread-carrinho">
+  <div class="bread col-sm-12 col-md-12 align_center margin_t_25">
+      <div class="num_bread_active margin_t_10"><div class="num_bread"><img class="img-responsive" alt="Icone Escolha de Produtos" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_1.png" /></div> <div class="display-steps-mobile-none">Escolha seus produtos</div></div>
+      <div class="num_bread_active margin_t_10">></div>
+      <div class="num_bread_active margin_t_10"><div class="num_bread"><img class="img-responsive" alt="Icone Intervalo de entregas" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_2.png" /></div> <div class="display-steps-mobile-none">Intervalo de entregas</div></div>
+      <div class="num_bread_active margin_t_10">></div>
+      <div class="active margin_t_10"><div class="num_bread"><img class="img-responsive" alt="Icone Confirmar e Finalizar" src="//cdn.shopify.com/s/files/1/0010/3150/3987/t/43/assets/bread_3-1.png" /></div> <div class="display-steps-mobile-none">Confirmar e finalizar</div></div>
+  </div>
+  <div class="col-xs-12 bread_line"></div>
+</div>
+
+<div class="page-width bg_f2f2f2" data-section-id="{{ section.id }}" data-section-type="cart-template">
+
+  {% if cart.item_count > 0 %}
+    <div class="section-header text-center">
+      <h1 class="lato_black titulo-carrinho-h1">{{ 'cart.general.title' | t }}</h1>
+    </div>
+
+<div class="container">
+  <div class="row justify-content-md-center padding_t_50 padding_b_50 margin_b_50 bg_ffffff">
+    <div class="col">
+      <form action="/cart" method="post" novalidate class="cart">
+        <table class="table">
+          <thead class="cart__row cart__header">
+            <th colspan="2">{{ 'cart.label.product' | t }}</th>
+            <th class="align_right">{{ 'cart.label.price' | t }}</th>
+          </thead>
+          <tbody>
+            {% for item in cart.items %}
+              <tr class="cart__row border-bottom line{{ forloop.index }} cart-flex{% if forloop.first %} border-top{% endif %}">
+                <td class="cart__image-wrapper cart-flex-item">
+                  <img class="cart__image" src="{{ item | img_url: '95x95', scale: 2 }}" alt="{{ item.title | escape }}">
+                </td>
+                <td class="cart__meta small--text-left cart-flex-item">
+                  <div class="list-view-item__title">
+                      {{ item.product.title }}
+                      {% if item.quantity > 1 %}
+                        <span class="medium-up--hide"><span class="visually-hidden">{{ 'cart.label.quantity' | t }}</span>(x{{ item.quantity }})</span>
+                      {% endif %}
+                  </div>
+                  {% unless item.variant.title contains 'Default' %}
+                    <div class="cart__meta-text">
+                      {% for option in item.product.options %}
+                        {{ item.variant.options[forloop.index0] }}<br/>
+                      {% endfor %}
+                    </div>
+                  {% endunless %}
+
+                  {%- assign property_size = item.properties | size -%}
+                  {% if property_size > 0 %}
+                    <div class="cart__meta-text">
+                      A cada {{ item.properties.shipping_interval_frequency }} dias
+                    </div>
+                  {% endif %}
+
+                  {% comment %}
+                    Optional, loop through custom product line items if available
+
+                    Line item properties come in as having two parts. The first part will be passed with the default form,
+                    but p.last is the actual custom property and may be blank. If it is, don't show it.
+
+                    For more info on line item properties, visit:
+                      - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                  {% endcomment %}
+                  {%- assign property_size = item.properties | size -%}
+                  {% if property_size > 0 %}
+                    <div class="cart__meta-text">
+                      {% for p in item.properties %}
+                        {% unless p.last == blank or p.first == "subscription_id" or p.first == "shipping_interval_frequency" or p.first == "shipping_interval_unit_type" %}
+                          {{ p.first }}:
+
+                          {% comment %}
+                            Check if there was an uploaded file associated
+                          {% endcomment %}
+                          {% if p.last contains '/uploads/' %}
+                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                            {{ p.last }}
+                          {% endif %}
+                        {% endunless %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  <p class="small--hide">
+                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn-sm l_blue">{{ 'cart.general.remove' | t }}</a>
+                  </p>
+                </td>
+                <td class="cart__price-wrapper cart-flex-item align_right">
+                  {{ item.price | money }}
+
+                  {% for discount in item.discounts %}
+                    <div class="cart-item__discount medium-up--hide">{{ discount.title }}</div>
+                  {% endfor %}
+
+                  {%comment%}
+                  <div class="cart__edit medium-up--hide">
+                    <button type="button" class="btn btn--secondary btn--small js-edit-toggle cart__edit--active" data-target="line{{ forloop.index }}">
+                      <span class="cart__edit-text--edit">{{ 'cart.general.edit' | t }}</span>
+                      <span class="cart__edit-text--cancel">{{ 'cart.general.cancel' | t }}</span>
+                    </button>
+                  </div>
+                  {%endcomment%}
+                </td>
+               <!-- <td class="cart__update-wrapper cart-flex-item text-right">
+                  {%comment%}
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn--small btn--secondary cart__remove medium-up--hide">{{ 'cart.general.remove' | t }}</a>
+                  {%endcomment%}
+                  <div class="cart__qty text-center">
+                    {%comment%}
+                    <label for="updates_{{ item.key }}" class="cart__qty-label">{{ 'cart.label.quantity' | t }}</label>
+                    {%endcomment%}
+                    <input class="cart__qty-input" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*">
+                  </div>
+                  {%comment%}
+                  <input type="submit" name="update" class="btn btn--small cart__update medium-up--hide" value="{{ 'cart.general.update' | t }}">
+                  {%endcomment%}
+                </td>
+                <td class="text-right small--hide">
+                  {% if item.original_line_price != item.line_price %}
+                    <div class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></div>
+                  {% endif %}
+
+                  <div>
+                    {{ item.line_price | money }}
+                  </div>
+
+                  {% for discount in item.discounts %}
+                    <div class="cart-item__discount">{{ discount.title }}</div>
+                  {% endfor %}
+                </td> -->
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <footer class="cart__footer">
+          <div class="grid">
+            {% if section.settings.cart_notes_enable %}
+              <div class="grid__item medium-up--one-half cart-note">
+                <label for="CartSpecialInstructions" class="cart-note__label small--text-center">{{ 'cart.general.note' | t }}</label>
+                <textarea name="note" id="CartSpecialInstructions" class="cart-note__input">{{ cart.note }}</textarea>
+              </div>
+            {% endif %}
+            <div class="grid__item text-right small--text-center{% if section.settings.cart_notes_enable %} medium-up--one-half{% endif %}">
+              <div>
+                <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                <span class="cart__subtotal">{{ cart.total_price | money }}</span>
+              </div>
+              {% if cart.total_discounts > 0 %}
+                <div class="cart__savings">
+                  {{ 'cart.general.savings' | t }}
+                  <span class="cart__savings-amount">{{ cart.total_discounts | money }}</span>
+                </div>
+              {% endif %}
+              <div class="cart__shipping">{{ 'cart.general.shipping_at_checkout' | t }}</div>
+              <a href="collections/all" class="btn"><span class="arr_n"><img class="margin_r_10" alt="voltar" src="{{ 'voltar.png ' | asset_url }}"> </span> Alterar assinatura</a>
+  {% comment %}
+              <input type="submit" name="update" class="btn btn--secondary cart__update cart__update--large small--hide " value="{{ 'cart.general.update' | t }}">
+
+              <input type="submit" name="checkout" id="checkoutFinal" class="btn l_blue" value="{{ 'cart.general.checkout' | t }}">
+              {% endcomment %}
+              <input type="hidden" name="checkout" id="checkoutFinal" class="btn l_blue" value="{{ 'cart.general.checkout' | t }}">
+              <input type="button" name="checkoutBtn" id="checkoutFinalBtn" class="btn l_blue" value="Prosseguir">
+              {% if additional_checkout_buttons %}
+                <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </footer>
+      </form>
+    </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+function generateUUID() {
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function')
+    {
+        d += performance.now();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c)
+    {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+}
+  var transactionProducts = {
+    'transactionId': generateUUID(),
+    'transactionTotal': {{ cart.total_price | money_without_currency | replace: ",", "." }},
+    'transactionProducts': [
+     {% for item in cart.items %}{% for option in item.product.options %}
+      {
+
+          'sku': '{{ item.variant.id }}',
+          'name': '{{ item.product.title }} {{ item.variant.options[forloop.index0] }}',
+          'category': '{{ item.vendor }}',
+          'price': {{ item.price | money_without_currency | replace: ",", "." }},
+          'quantity': {{ item.quantity }}
+      },
+      {% endfor %}{% endfor %}
+    ]};
+
+</script>
+
+  {% else %}
+    <div class="empty-page-content text-center margin_b_20">
+      <h1>{{ 'cart.general.title' | t }}</h1>
+      <a href="/" class="btn margin_r_20 bg_073b79 margin_t_10"><span class="c_l_blue padding_r_10">+</span>Criar nova assinatura</a>
+    </div>
+  {% endif %}
+</div>
+
+<div class="modal fade modalCep">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content ">
+			<div class="container-fluid">
+				<div class"row">
+					<img src="{{ 'icone_mapa.png' | asset_url }}" class="img-responsive w_150 padding_20 margin_auto">
+					<p class="f14 lato_black c_blue align_c">Informe seu CEP para continuar.</p>
+				</div>
+				<div class="row container_central_modal">
+				<form id="cepFormModal" onsubmit="return(getCepModal())" class="form w_full">
+						<div class="row">
+							<div class="col-12">
+									<input class="input_cep w_full align_center" id="getCepInput" placeholder="CEP" type="text" required>
+							</div>
+
+						</div>
+						<div class="row align-items-center">
+
+							<div class="col-12 text-center">
+								<input type="submit" class="btn l_blue" value="CONTINUAR" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalCepErro">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_ass">
+			<div class="container-fluid">
+				<div class"row">
+					<img src="{{ 'icone_mapa.png' | asset_url }}" class="img-responsive margin_auto">
+					<p class="f20 lato_black c_blue align_c">Ainda não atendemos o seu bairro. Por favor, preencha seus dados abaixo que entraremos em contato assim que chegarmos ao seu bairro.</p>
+				</div>
+				<div class="row container_central_modal">
+				<form id="confirmar_dados" class="form w_full">
+						<div class="row">
+							<div class="col-12">
+									<input type="text" name="nome" placeholder="Nome" class="form-control" required="required">
+							</div>
+							<div class="col-12">
+									<input type="text" name="tel" placeholder="E-mail" class="form-control" required="required">
+							</div>
+						</div>
+						<div class="row align-items-center">
+							<div class="col-6">
+								<label class="label_form">Telefone</label>
+								<label id="tel-label">
+								<input type="text" class="telefone" id="telefone" name="telefone"  value="" placeholder="(00) 0000-0000 " required />
+									<span class="unit"><img src="{{ 'icon_bandeira.jpg' | asset_url }}"> +55</span>
+								</label>
+							</div>
+							<div class="col-12 align_r">
+								<a class="btn " data-dismiss="modal" aria-label="Close">Cancelar</a>
+								<input type="submit" class="btn l_blue" value="Me Avise" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Cart page",
+      "de": "Warenkorb-Seite",
+      "fr": "Page du panier"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": {
+          "en": "Enable cart notes",
+          "de": "Warenkorb-Notifikationen erlauben",
+          "fr": "Activer les notes de panier"
+        },
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

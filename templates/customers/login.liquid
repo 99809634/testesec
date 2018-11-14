@@ -1,0 +1,114 @@
+<div id="tela_cadastro" class="col-xs-12 bg_f5f5f5">
+    <div class="col-12">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 c_l_blue align_c f32 margin_b_50">Seja bem-vindo ao Sempre em Casa.</div>
+                    <div class="col-md-6 col-12">
+                        {% form 'create_customer' , class: 'bg_fff form matchBoxes' %}
+                            <div class="row">
+                                <div class="col-12 c_blue f24 margin_b_50">Ainda não é cadastrado?</div>
+                                {%- if form.errors -%}
+                                  <div class="col-12">
+                                    <div class="alert alert-danger" role="alert">
+                                      {{ form.errors | default_errors }}
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+                                <div class="col-12">
+                                    <input type="text" name="customer[first_name]" required id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus placeholder="Nome">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="customer[email]" required  id="Email" placeholder="E-mail" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+                                </div>
+                                <div class="col-6">
+                                    <label class="label_form">Telefone</label>
+                                    <label id="tel-label">
+                                        <input type="text" class="telefone" id="telefone" name="customer[note][phone]" {% if form.note.phone %} value="{{ form.note.phone }}"{% endif %} placeholder="(00) 0000-0000 " required />
+                                        <span class="unit"><img src="{{ 'icon_bandeira.jpg' | asset_url }}"> +55</span>
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="label_form">Senha</label>
+                                    <input type="password" name="customer[password]" id="CreatePassword" placeholder="Senha">
+                                </div>
+                                <div class="col-12 padding_t_5">
+                                    <label id="news-label" class="w_full align_left">
+                                        <input type="checkbox" name="customer[accepts_marketing]" id="news-label" class="left w_10 margin_r_10" /> Aceito receber emails com promoções
+                                    </label>
+                                </div>
+                                <div class="col-12 padding_t_5">
+                                    <label id="acc-regulamento" class="w_full align_left">
+                                        <input type="checkbox" name="regulamento" id="acc-regulamento" class="left w_10 margin_r_10"  /> *Concordo com os <a href="/pages/termos-de-uso" target="_blank">Termos de Uso</a>
+                                    </label>
+                                </div>
+
+                                <div class="col-12 padding_t_20">
+                                     <button type="submit" class="btn margin_r_20 l_blue w_full">Cadastrar</button>
+                                </div>
+                            </div>
+                        {% endform %}
+                    </div>
+                    <div class="col-md-6 col-12">
+                        {% form 'customer_login', class: 'bg_fff form matchBoxes' %}
+                            <div class="row">
+                                <div class="col-12 c_blue f24 margin_b_50">Já sou cadastrado.</div>
+                                {%- if form.errors -%}
+                                  <div class="col-12">
+                                    <div class="alert alert-danger" role="alert">
+                                      {{ form.errors | default_errors }}
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+
+                                <div class="col-12">
+                                    <input type="text" required name="customer[email]" id="CustomerEmail"  placeholder="E-mail">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" required name="customer[password]" id="CustomerPassword" placeholder="Senha" class="{% if form.errors contains 'password' %} input--error{% endif %}" />
+                                    <div><a href="javascript:void(0)" id="RecoverPassword" class="f12 link_form">Não lembro minha senha.</a></div>
+                                    <!--<div><a href="" class="f12 link_form">Não recebi meu e-mail de confirmação.</a></div>-->
+                                </div>
+                                <div class="col-12 padding_t_70">
+                                    <button type="submit" class="btn margin_r_20 l_blue w_full" >Entrar</button>
+                                </div>
+                            </div>
+                         {% endform %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade recoverModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content modal_ass">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+                        {% form 'recover_customer_password', class: 'bg_fff' %}
+                        <div class="col-12 c_blue f24 margin_b_50 text-center">Esqueci minha senha.</div>
+
+                        <div class="col-12">
+                            {%- if form.errors -%}
+                            <div class="form-message form-message--error">
+                                {{ form.errors | default_errors }}
+                            </div>
+                            {%- endif -%}
+                        </div>
+
+                        <div class="col-12">
+                            <input type="email" class="form-control" required name="email" placeholder="E-mail" />
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <input type="submit" class="btn margin_t_20 l_blue " value="Enviar" />
+                        </div>
+                        {% endform %}
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,118 @@
+<div class="m_list margin_b_20 col-xs-12 vb-m-list-desktop">
+    {% for coll in collections %}
+
+        {% if coll.description == 'menu' %}
+
+            {% assign idx = forloop.index | append: '' %}
+            {% assign hvendor = false %}
+            {% assign vendorname = "" %}
+
+            {% if collection.current_vendor %}
+                {%- for part in parts -%}
+                    {%- assign keyAndValue = part | split:'=' -%}
+                    {%- if keyAndValue.size > 1 -%}
+                        {% if keyAndValue[0] == "idx" and keyAndValue[1] == idx %}
+                            {% assign vendorname = collection.current_vendor %}
+                            {% assign hvendor = true %}
+                        {% endif %}
+                    {%- endif -%}
+                {%- endfor -%}
+            {% endif %}
+
+            <div class="m_list_c relative left margin_r_10">
+                <div class="dropdown {% if hvendor %}drop-active{%endif%}">
+                    <div class="btn dropdown-toggle bg_33b5ee" id="iD-{{coll.title}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if hvendor %}
+                            {{ vendorname }}
+                        {% else %}
+                            {{coll.title}}
+                        {% endif %}
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="iD-{{coll.title}}">
+                        {% if hvendor %}
+                            <a href="/collections/cerveja" class="dropdown-item">Remover filtro</a>
+                        {% endif %}
+                        {% for vendor in coll.all_vendors %}
+                            <a href="/collections/vendors?q={{ vendor }}&idx={{ idx }}" class="dropdown-item">{{vendor}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %} <!-- coll.description == 'menu' -->
+    {% endfor %} <!-- coll in collections -->
+
+    <div class="m_list_c relative right margin_r_10">
+        {% include 'search-form' %}
+    </div>
+</div><!-- .vb-m-list-desktop -->
+
+<div class="col-12 col-xs-12 col-sm-12 vb-m-list-mobile">
+    <div class="row">
+        <div class="col-3">
+            <a href="javascript:void(0);" onclick="$('#filtroAccordion').slideToggle()">
+                <i class="fas fa-sliders-h fa-3x c_blue"></i>
+            </a>
+        </div>
+        <div class="col-9">
+            <div class="m_list_c relative w_full margin_b_10">
+                {% include 'search-form' %}
+            </div>
+        </div>
+    </div>
+</div><!-- .vb-m-list-mobile -->
+
+<div id="vb-search-div">
+
+<div class="col-sm-12 col-xs-12">
+    <div class="accordion" id="filtroAccordion" style="display:none;">
+        {% for coll in collections %}
+
+            {% if coll.description == 'menu' %}
+
+                {% assign idx = forloop.index | append: '' %}
+                {% assign hvendor = false %}
+                {% assign vendorname = "" %}
+
+                {% if collection.current_vendor %}
+                    {%- for part in parts -%}
+                        {%- assign keyAndValue = part | split:'=' -%}
+                        {%- if keyAndValue.size > 1 -%}
+                            {% if keyAndValue[0] == "idx" and keyAndValue[1] == idx %}
+                                {% assign vendorname = collection.current_vendor %}
+                                {% assign hvendor = true %}
+                            {% endif %}
+                        {%- endif -%}
+                    {%- endfor -%} <!-- part in parts -->
+                {% endif %} <!-- collection.current_vendor -->
+
+                <div class="card">
+                    <div class="card-header" id="head-{{forloop.index}}" style="background-color:#33b5ee;">
+                        <h5 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#accord-{{forloop.index}}">
+                                {% if hvendor %}
+                                    {{ vendorname }} <i class="fas fa-check"></i>
+                                {% else %}
+                                    {{coll.title | remove: 'Menu:' }}
+                                {% endif %}
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="accord-{{forloop.index}}" class="collapse" data-parent="filtroAccordion" style="background-color:#33b5ee;">
+                        <div class="card-body">
+                            {% if hvendor %}
+                                <a href="/collections/cerveja" class="dropdown-item">Remover filtro</a>
+                            {% endif %}
+                            {% for vendor in coll.all_vendors %}
+                                <a href="/collections/vendors?q={{ vendor }}&idx={{ idx }}" class="dropdown-item">{{vendor}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+            {% endif %} <!-- coll.description == 'menu' -->
+            
+
+        {% endfor %} <!-- coll in collections -->
+    </div>
+</div>
+

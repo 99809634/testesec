@@ -1,0 +1,14 @@
+<form action="/search" method="get" class="search-header search" role="search">
+  <div class="input-group">
+    <input class="search-header__input search__input form-control"
+      type="search"
+      name="q"
+      placeholder="{{ 'general.search.placeholder' | t }}"
+      aria-label="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}"/>
+    <div class="input-group-append">
+      <button class="btn btn-submit" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+</form>

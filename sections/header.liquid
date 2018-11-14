@@ -1,0 +1,300 @@
+<div id="h-header" class="">
+  <div class="header-alert">
+    <div class="row">
+      <div class="col-12">
+        <div class="float-right">
+          <div id="btnAlertHide">X</div>
+        </div>
+        <p class="text-alert-top">DISPONÍVEL APENAS PARA A CIDADE DE SÃO PAULO</p>
+      </div>
+    </div>
+    </div>
+  <div class="col-xs-12 bg_ffffff z_10">
+    <div class="col-sm-3 col-6 col-xs-6 ">
+      <a href="/"><img class="margin_t_15 margin_b_15 margin_l_35 img-responsive logo-desktop" alt="Logo EasyBev" src="{{ 'logo.png' | asset_url }}" /></a>
+    </div>
+    <div class=" col-sm-9 col-6 col-xs-6">
+        <div class="m_mobile_h right">
+          <div class="sprite ico_menu_mobile left visible-xs visible-sm "></div>
+          <div class="hide_c absolute menu_mobile">
+            <ul>
+                <li><a href="/collections/cerveja" class="w_full">Ver Produtos</a></li>
+                <li><a href="/#mob-h-comoFunciona" class="w_full linkmenu">Como Funciona.</a></span></li>
+                <li><a href="/#mob-h-vantagens" class="w_full linkmenu">Vantagens</a></span></li>
+                <li><a href="/pages/duvidas-frequentes" class="w_full">Dúvidas Frequentes</a></li>
+                {% if customer %}
+                {% if customer.metafields.subscriptions.customer_string %}
+                  <li><a href="/tools/recurring/customer/{{ customer.metafields.subscriptions.customer_string }}/subscriptions/">Gerenciar assinatura</a></li>
+                {% endif %}
+                <li><a href="/collections/all" class="w_full">Criar nova assinatura</a></li>
+                <li><a href="/account/logout" class="w_full">Sair</a></li>
+                {% else %}
+                  <li><a href="/account/login" class="w_full">Entrar</a></li>
+                {% endif %}
+            </ul>
+          </div>
+          {% if template.name contains 'collection' or template.name contains 'search' %}
+          <div id="carrinho" class="left relative">
+            <div class="sprite ico_carrinho"></div>
+            {% if cart.item_count > 0 %}<div class="m_t_itens">{{ cart.item_count }}</div>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+        
+
+        <div class="right c_top hidden-xs hidden-sm">
+            <a href="/pages/duvidas-frequentes" class="btn margin_r_20 l_blue">Dúvidas Frequentes</a>
+        {% if customer %}
+            {% if customer.metafields.subscriptions.customer_string %}
+            <a class="btn margin_r_20" href="/tools/recurring/customer/{{ customer.metafields.subscriptions.customer_string }}/subscriptions/">Gerenciar assinatura</a>
+            {% endif %}
+            <a href="/collections/all" class="btn margin_r_20 bg_073b79"><span class="c_l_blue padding_r_10">+</span>Criar nova assinatura</a>
+            <a href="/account/logout" class="btn margin_r_20">Sair</a>
+          {% else %}
+            <!--<a href="/pages/duvidas-frequentes" class="btn margin_r_20 l_blue">Dúvidas Frequentes</a>-->
+            <a href="/account/login" class="btn margin_r_20">Entrar</a>
+          {% endif %}
+      </div>
+
+      <div id="menu-n-home" class="c_blue right hidden-xs hidden-sm">
+          <ul>
+            <li><a href="/collections/cerveja">Ver Produtos</a></li>
+            <li><a href="/#como-funciona-h" class="linkmenu">Como Funciona</a></li>
+            <li><a href="/#h-vantagens" class="linkmenu">Vantagens</a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id="divA"></div>
+
+{% if template == 'customers/account' %}
+  {% if customer.metafields.subscriptions.customer_string %}
+  <script type="text/javascript">window.location.href = "/tools/recurring/customer/{{ customer.metafields.subscriptions.customer_string }}/subscriptions/";</script>
+  {% else %}
+  <script type="text/javascript">window.location.href = "/collections/all/";</script>
+  {% endif %}
+{% endif %}
+
+<!--
+<script>
+		(function() {
+      var nav = $('#carrinho');
+    	$(window).scroll(function () {
+    	if ($(this).scrollTop() > 209) {
+    	nav.addClass("carrinhofixo");
+    	} else {
+    	nav.removeClass("carrinhofixo");
+    	}
+    	});
+		})();
+</script>
+-->
+
+<script>
+	$(document).ready(function(){
+		$('.carousel').slick({
+      dots: false,
+      infinite: true,
+      autoplaySpeed: 6000,
+      autoplay: true,
+      arrows: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: "<button type='button' data-role='none' class='slick-next slick-arrow' aria-label='Next slide' role='button' style='display: block;'></button>",
+      prevArrow: "<button type='button' data-role='none' class='slick-prev slick-arrow' aria-label='Previous slide' role='button' style='display: block;'></button>",
+		});
+
+    $('.carousel-home-mobile').slick({
+      dots: false,
+      infinite: true,
+      autoplaySpeed: 6000,
+      autoplay: true,
+      arrows: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: "<button type='button' data-role='none' class='slick-next slick-arrow' aria-label='Next slide' role='button' style='display: block;'></button>",
+      prevArrow: "<button type='button' data-role='none' class='slick-prev slick-arrow' aria-label='Previous slide' role='button' style='display: block;'></button>",
+		});
+	});
+
+ 
+</script>
+
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Header",
+      "de": "Titel",
+      "fr": "En-tête"
+    },
+    "settings": [
+      {
+        "type": "radio",
+        "id": "align_logo",
+        "label": {
+          "en": "Logo alignment",
+          "de": "Logo-Ausrichtung",
+          "fr": "Alignement du logo"
+        },
+        "default": "left",
+        "options": [
+          {"value": "left", "label": { "en": "Left", "de": "Links", "fr": "Gauche" }},
+          {"value": "center", "label": { "en": "Centered", "de": "Mittig", "fr": "Centré" }}
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "en": "Logo image",
+          "de": "Logo-Foto",
+          "fr": "Image du logo"
+        }
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "label": {
+          "en": "Custom logo width",
+          "de": "Logobreite",
+          "fr": "Largeur personnalisée du logo"
+        },
+        "min": 50,
+        "max": 250,
+        "step": 5,
+        "unit": "px",
+        "default": 100
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": {
+          "en": "Menu",
+          "de": "Menü",
+          "fr": "Menu"
+        },
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Announcement bar",
+          "de": "Ankündigungsbereich",
+          "fr": "Barre d'annonces"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "message",
+        "label": {
+          "en": "Show announcement",
+          "de": "Ankündigung anzeigen",
+          "fr": "Afficher l'annonce"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": {
+          "en": "Home page only",
+          "de": "Nur Startseite",
+          "fr": "Page d'accueil uniquement"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "message_text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": {
+          "en": "Announce something here",
+          "de": "Hier etwas ankündigen",
+          "fr": "Annoncez quelque chose ici"
+        }
+      },
+      {
+        "type": "url",
+        "id": "message_link",
+        "label": {
+          "en": "Link",
+          "de": "Link",
+          "fr": "Lien"
+        },
+        "info": {
+          "en": "Optional",
+          "de": "Optional",
+          "fr": "Facultatif"
+        }
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": {
+          "en": "Bar",
+          "de": "Zeile",
+          "fr": "Barre"
+        },
+        "default": "#7796a8"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{% if template.name == 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}

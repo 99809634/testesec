@@ -1,0 +1,174 @@
+<div id="tela_cadastro" class="col-xs-12 bg_f5f5f5">
+    <div class="col-12">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 c_l_blue align_c f32 margin_b_50">Seja bem-vindo ao EasyBev.</div>
+                    <div class="col-md-6 col-12">
+                        {% form 'create_customer' , class: 'bg_fff form' %}
+                            <div class="row">
+                                <div class="col-12 c_blue f24 margin_b_50">Ainda não é cadastrado?</div>
+                                {%- if form.errors -%}
+                                  {{ form.form_type }}
+                                  <div class="col-12">
+                                    <div class="alert alert-danger" role="alert">
+                                      {{ form.errors | default_errors }}
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+                                <div class="col-12">
+                                    <input type="text" name="customer[first_name]" required id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus placeholder="Nome">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="customer[email]" required  id="Email" placeholder="E-mail" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+                                </div>
+                                <div class="col-6">
+                                    <label class="label_form">Telefone</label>
+                                    <label id="tel-label">
+                                        <input type="text" class="telefone" id="telefone" customer[note][phone] {% if form.note.phone %} value="{{ form.note.phone }}"{% endif %} placeholder="(00) 0000-0000 " />
+                                        <span class="unit"><img src="{{ 'icon_bandeira.jpg' | asset_url }}"> +55</span>
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="label_form">Senha</label>
+                                    <input type="password" name="customer[password]" id="CreatePassword" placeholder="Senha">
+                                </div>
+                                <div class="col-12 padding_t_20">
+                                     <input type="submit" class="btn margin_r_20 l_blue w_full" value="Cadastrar" />
+                                </div>
+                            </div>
+                        {% endform %}
+                    </div>
+                    <div class="col-md-6 col-12">
+                        {% form 'customer_login', class: 'bg_fff form' %}
+                            <div class="row">
+                                <div class="col-12 c_blue f24 margin_b_50">Já sou cadastrado.</div>
+                                {%- if form.errors -%}
+                                  <div class="col-12">
+                                    <div class="alert alert-danger" role="alert">
+                                      {{ form.errors | default_errors }}
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+
+                                <div class="col-12">
+                                    <input type="text" required name="customer[email]" id="CustomerEmail"  placeholder="E-mail">
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" required name="customer[password]" id="CustomerPassword" placeholder="Senha" class="{% if form.errors contains 'password' %} input--error{% endif %}" />
+                                    <div><a href="#recover" id="RecoverPassword" class="f12 link_form">Não lembro minha senha.</a></div>
+                                    <!--<div><a href="" class="f12 link_form">Não recebi meu e-mail de confirmação.</a></div>-->
+                                </div>
+                                <div class="col-12 padding_t_70">
+                                    <input type="submit" class="btn margin_r_20 l_blue w_full" value="Entrar" />
+                                </div>
+                            </div>
+                         {% endform %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<div class="page-width">
+  <div class="grid">
+
+    <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+      <div class="form-message form-message--success hide" id="ResetSuccess">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
+
+      <div id="CustomerLoginForm" class="form-vertical">
+        {% form 'customer_login' %}
+
+          <h1 class="text-center">{{ 'customer.login.title' | t }}</h1>
+
+          {%- if form.errors -%}
+            <div class="form-message form-message--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+          <input type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+
+          {% if form.password_needed %}
+            <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+            <input type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+          {% endif %}
+
+          <div class="text-center">
+            {% if form.password_needed %}
+              <p><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+            {% endif %}
+
+            <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
+
+            <p>
+              {{ 'layout.customer.create_account' | t | customer_register_link }}
+            </p>
+          </div>
+
+        {% endform %}
+      </div>
+
+      <div id="RecoverPasswordForm" class="hide">
+
+        <div class="text-center">
+          <h2>{{ 'customer.recover_password.title' | t }}</h2>
+          <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+
+        <div class="form-vertical">
+          {% form 'recover_customer_password' %}
+
+            {%- if form.errors -%}
+              <div class="form-message form-message--error">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            {% comment %}
+              Add a hidden span to indicate the form was submitted succesfully.
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <span class="hide reset-password-success"></span>
+            {% endif %}
+
+            <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
+            <input type="email" value="" name="email" id="RecoverEmail" class="input-full"autocorrect="off" autocapitalize="off">
+
+            <div class="text-center">
+              <p>
+                <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+              </p>
+
+              <button type="button" id="HideRecoverPasswordLink" class="text-link">{{ 'customer.recover_password.cancel' | t }}</button>
+            </div>
+          {% endform %}
+        </div>
+
+      </div>
+
+      {% comment %}
+        If accounts are set as optional, the following will be shown as an option
+        during checkout, not on the default /login page.
+      {% endcomment %}
+      {% if shop.checkout.guest_login %}
+        <div class="text-center">
+          <hr class="hr--invisible">
+          <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+          {% form 'guest_login' %}
+            <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+-->

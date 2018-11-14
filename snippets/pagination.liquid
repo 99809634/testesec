@@ -1,0 +1,16 @@
+<div class="col-xs-12 margin_b_20 margin_t_20">
+  <div class="col-xs-6">
+    {% unless paginate.previous.is_link %}
+      <div class="sr-only">{{ 'general.pagination.previous' | t }}</div>
+    {% else %}
+      <a href="{{ paginate.previous.url }}" class="btn l_blue left pull-left">{{ 'general.pagination.previous' | t }}</a>
+    {% endunless %}
+  </div>
+  <div class="col-xs-6">
+    {% unless paginate.next.is_link %}
+      <div class="sr-only"><span class="icon__fallback-text">{{ 'general.pagination.next' | t }}</div>
+    {% else %}
+      <a href="{{ paginate.next.url }}" class="btn l_blue right pull-right">{{ 'general.pagination.next' | t }}</a>
+    {% endunless %}
+  </div>
+</div>
